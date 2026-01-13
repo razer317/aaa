@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ru" id="html-root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Южный Урал — Сердце Евразии</title>
+  <meta name="description" content="Туристический гид по Южному Уралу: горы, озёра, Аркаим, Таганай и уникальная природа на границе Европы и Азии.">
+
+  <!-- Open Graph / SEO -->
+  <meta property="og:title" content="Южный Урал — Сердце Евразии">
+  <meta property="og:description" content="Горы, озёра и древние тайны на границе континентов.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Fonts & Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-y..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* === Общие стили === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #2c3e50;
+      --secondary: #1abc9c;
+      --accent: #e67e22;
+      --light: #f9f9f9;
+      --dark: #1a1a1a;
+      --shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* === Шапка === */
+    header {
+      background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 140px 20px 100px;
+    }
+
+    header h1 {
+      font-size: clamp(2.2rem, 6vw, 3.8rem);
+      margin-bottom: 1.2rem;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+
+    header p {
+      font-size: clamp(1.1rem, 3.5vw, 1.5rem);
+      max-width: 800px;
+      margin: 0 auto;
+      opacity: 0.95;
+    }
+
+    /* === Навигация === */
+    nav {
+      background-color: white;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 12px;
+      padding: 15px 0;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.3s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: white;
+      background: var(--secondary);
+    }
+
+    .lang-switcher {
+      padding: 15px 0;
+    }
+
+    .lang-switcher button {
+      background: none;
+      border: 1px solid var(--secondary);
+      color: var(--secondary);
+      padding: 6px 12px;
+      margin-left: 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .lang-switcher button.active {
+      background: var(--secondary);
+      color: white;
+    }
+
+    /* Бургер-меню (мобильное) */
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .burger span {
+      width: 24px;
+      height: 3px;
+      background: var(--primary);
+    }
+
+    /* === Кнопка наверх === */
+    #back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--secondary);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.4s;
+      z-index: 999;
+    }
+
+    #back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* === Карточки мест === */
+    .places-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .place-card {
+      background: white;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: all 0.4s;
+    }
+
+    .place-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.18);
+    }
+
+    .place-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      cursor: pointer;
+      display: block;
+    }
+
+    .card-content {
+      padding: 20px;
+    }
+
+    .place-card h3 {
+      color: var(--primary);
+      margin-bottom: 10px;
+    }
+
+    /* === Галерея === */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 15px;
+      margin-top: 30px;
+    }
+
+    .gallery img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover {
+      transform: scale(1.04);
+    }
+
+    /* === Лайтбокс === */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.92);
+      z-index: 2000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 8px;
+      outline: none;
+    }
+
+    .close-lightbox {
+      position: absolute;
+      top: 20px;
+      right: 30px;
+      color: white;
+      font-size: 36px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 5px;
+    }
+
+    /* === Форма заявки === */
+    .contact-form {
+      max-width: 600px;
+      margin: 40px auto 0;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-form input,
+    .contact-form textarea,
+    .contact-form select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+
+    .contact-form button {
+      background: var(--secondary);
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 10px;
+      transition: background 0.3s;
+    }
+
+    .contact-form button:hover {
+      background: #16a085;
+    }
+
+    /* === Подвал === */
+    footer {
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 80px;
+    }
+
+    footer p {
+      margin: 8px 0;
+      opacity: 0.9;
+    }
+
+    /* === Адаптивность === */
+    @media (max-width: 768px) {
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        display: none;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .burger {
+        display: flex;
+      }
+
+      section {
+        padding: 50px 15px;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Лайтбокс -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Просмотр изображения">
+    <button class="close-lightbox" id="close-lightbox" aria-label="Закрыть">&times;</button>
+    <img id="lightbox-img" src="" alt="Увеличенное изображение">
+  </div>
+
+  <!-- Кнопка "Наверх" -->
+  <a href="#" id="back-to-top" class="fas fa-arrow-up" aria-label="Вернуться наверх"></a>
+
+  <!-- Шапка -->
+  <header>
+    <h1 data-key="title">Южный Урал</h1>
+    <p data-key="subtitle">Где встречаются Европа и Азия — земля гор, озёр и древних легенд</p>
+  </header>
+
+  <!-- Навигация -->
+  <nav>
+    <button class="burger" id="burger" aria-label="Меню">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="#about" data-key="nav_about">О регионе</a></li>
+      <li><a href="#places" data-key="nav_places">Достопримечательности</a></li>
+      <li><a href="#map" data-key="nav_map">Карта</a></li>
+      <li><a href="#gallery" data-key="nav_gallery">Галерея</a></li>
+      <li><a href="#contact" data-key="nav_contact">Контакты</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="ru" aria-label="Переключить на русский">RU</button>
+      <button class="lang-btn" data-lang="en" aria-label="Switch to English">EN</button>
+    </div>
+  </nav>
+
+  <!-- О регионе -->
+  <section id="about" class="fade-in">
+    <div class="container">
+      <h2 data-key="about_title">О Южном Урале</h2>
+      <p data-key="about_text">
+        Южный Урал — это не просто географическое понятие. Это живая легенда, где горы хранят тайны бронзового века, озёра отражают звёзды, а степной ветер поёт песни свободы.
+      </p>
+    </div>
+  </section>
+
+  <!-- Достопримечательности -->
+  <section id="places" class="fade-in">
+    <div class="container">
+      <h2 data-key="places_title">Главные места силы</h2>
+      <div class="places-grid">
+        <div class="place-card">
+          <img src="1016900e8a378247ec0815f647faf0f2.jpg" alt="Национальный парк Таганай" loading="lazy">
+          <div class="card-content">
+            <h3 data-key="taganay">Таганай</h3>
+            <p data-key="taganay_desc">Национальный парк с причудливыми скалами и альпийскими лугами.</p>
+          </div>
+        </div>
+        <div class="place-card">
+          <img src="1200px-Вид_на_Тургояк_с_крутиков.jpg" alt="Озеро Тургояк" loading="lazy">
+          <div class="card-content">
+            <h3 data-key="turgoyak">Озеро Тургояк</h3>
+            <p data-key="turgoyak_desc">Чистота воды сравнима с Байкалом. Посетите остров Веры.</p>
+          </div>
+        </div>
+        <div class="place-card">
+          <img src="bd8a68460392aaf2d168dbd327abbcdb.jpg" alt="Археологический памятник Аркаим" loading="lazy">
+          <div class="card-content">
+            <h3 data-key="arkaim">Аркаим</h3>
+            <p data-key="arkaim_desc">Древний город-крепость эпохи бронзы. Место силы.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Карта -->
+  <section id="map" class="fade-in">
+    <div class="container">
+      <h2 data-key="map_title">Карта путешествий</h2>
+      <div style="height: 400px; border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); margin-top: 30px;">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2085723.800328944!2d57.12580527075195!3d54.746279299999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x41467d0e4d8a1a0b%3A0x3e8a0a0a0a0a0a0a!2z0JrQsNC90YHQutCw0Y8g0KPQvdC40LLQsNC70L7QstCw!5e0!3m2!1sru!2sru!4v1712345678901!5m2!1sru!2sru"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Карта Южного Урала">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Галерея -->
+  <section id="gallery" class="fade-in">
+    <div class="container">
+      <h2 data-key="gallery_title">Галерея природы</h2>
+      <div class="gallery">
+        <img src="1(147).png" alt="Таганай" loading="lazy">
+        <img src="scale_1200 (1).jpg" alt="Тургояк" loading="lazy">
+        <img src="scale_1200.jpg" alt="Аркаим" loading="lazy">
+        <img src="zlattur_ok.jpg" alt="Уральские горы" loading="lazy">
+        <img src="IMG_8005.jpg" alt="Таёжный лес" loading="lazy">
+        <img src="76a5ce0277908be63a8e917787e589c8.jpg" alt="Горная река" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты и форма -->
+  <section id="contact" class="fade-in">
+    <div class="container">
+      <h2 data-key="contact_title">Забронируйте тур</h2>
+      <p data-key="contact_text">Оставьте заявку — мы подберём маршрут под ваши интересы!</p>
+
+      <!-- ⚠️ Замените YOUR_FORM_ID на реальный ID из Formspree -->
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <input type="text" name="name" placeholder="Ваше имя" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <select name="trip" required>
+          <option value="" disabled selected data-key="select_trip">Выберите маршрут</option>
+          <option value="taganay" data-key="trip_taganay">Таганай (3 дня)</option>
+          <option value="arkaim" data-key="trip_arkaim">Аркаим + степи (4 дня)</option>
+          <option value="full" data-key="trip_full">Полный тур по Южному Уралу (7 дней)</option>
+        </select>
+        <textarea name="message" rows="4" placeholder="Дополнительные пожелания"></textarea>
+        <button type="submit" data-key="submit_btn">Отправить заявку</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Подвал -->
+  <footer>
+    <p>&copy; 2025 «Южный Урал — Сердце Евразии»</p>
+    <p>info@ural-guide.ru | +7 (908) 049-93-08</p>
+  </footer>
+
+  <!-- Скрипты -->
+  <script>
+    // === Переключение языков ===
+    const translations = {
+      ru: {
+        title: "Южный Урал",
+        subtitle: "Где встречаются Европа и Азия — земля гор, озёр и древних легенд",
+        nav_about: "О регионе",
+        nav_places: "Достопримечательности",
+        nav_map: "Карта",
+        nav_gallery: "Галерея",
+        nav_contact: "Контакты",
+        about_title: "О Южном Урале",
+        about_text: "Южный Урал — это не просто географическое понятие. Это живая легенда, где горы хранят тайны бронзового века, озёра отражают звёзды, а степной ветер поёт песни свободы.",
+        places_title: "Главные места силы",
+        taganay: "Таганай",
+        taganay_desc: "Национальный парк с причудливыми скалами и альпийскими лугами.",
+        turgoyak: "Озеро Тургояк",
+        turgoyak_desc: "Чистота воды сравнима с Байкалом. Посетите остров Веры.",
+        arkaime: "Аркаим",
+        arkaime_desc: "Древний город-крепость эпохи бронзы. Место силы.",
+        map_title: "Карта путешествий",
+        gallery_title: "Галерея природы",
+        contact_title: "Забронируйте тур",
+        contact_text: "Оставьте заявку — мы подберём маршрут под ваши интересы!",
+        select_trip: "Выберите маршрут",
+        trip_taganay: "Таганай (3 дня)",
+        trip_arkaim: "Аркаим + степи (4 дня)",
+        trip_full: "Полный тур по Южному Уралу (7 дней)",
+        submit_btn: "Отправить заявку"
+      },
+      en: {
+        title: "Southern Urals",
+        subtitle: "Where Europe meets Asia — land of mountains, lakes, and ancient legends",
+        nav_about: "About the Region",
+        nav_places: "Attractions",
+        nav_map: "Map",
+        nav_gallery: "Gallery",
+        nav_contact: "Contact",
+        about_title: "About the Southern Urals",
+        about_text: "The Southern Urals are more than just a geographical region. It’s a living legend where mountains guard Bronze Age secrets, lakes mirror the stars, and the steppe wind sings songs of freedom.",
+        places_title: "Key Destinations",
+        taganay: "Taganay",
+        taganay_desc: "National park with unique rock formations and alpine meadows.",
+        turgoyak: "Lake Turgoyak",
+        turgoyak_desc: "Water clarity rivals Lake Baikal. Visit Vera Island with 19th-century megaliths.",
+        arkaime: "Arkaim",
+        arkaime_desc: "Ancient Bronze Age fortified settlement. A place of power.",
+        map_title: "Travel Map",
+        gallery_title: "Nature Gallery",
+        contact_title: "Book a Tour",
+        contact_text: "Leave a request — we’ll tailor a route to your interests!",
+        select_trip: "Choose a tour",
+        trip_taganay: "Taganay (3 days)",
+        trip_arkaim: "Arkaim + Steppes (4 days)",
+        trip_full: "Full Southern Urals Tour (7 days)",
+        submit_btn: "Send Request"
+      }
+    };
+
+    function switchLanguage(lang) {
+      document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[lang][key]) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = translations[lang][key];
+          } else if (el.tagName === 'OPTION') {
+            el.textContent = translations[lang][key];
+          } else {
+            el.textContent = translations[lang][key];
+          }
+        }
+      });
+      document.documentElement.setAttribute('lang', lang);
+      localStorage.setItem('ural-lang', lang);
+
+      document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+      });
+    }
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', () => switchLanguage(btn.dataset.lang));
+    });
+
+    // Загрузка языка
+    const savedLang = localStorage.getItem('ural-lang') || 'ru';
+    switchLanguage(savedLang);
+
+    // === Бургер-меню ===
+    document.getElementById('burger').addEventListener('click', () => {
+      document.getElementById('nav-menu').classList.toggle('active');
+    });
+
+    // === Лайтбокс ===
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.getElementById('close-lightbox');
+
+    document.querySelectorAll('.gallery img, .place-card img').forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightboxImg.alt = img.alt;
+        lightbox.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      });
+    });
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+      document.body.style.overflow = '';
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeLightbox();
+    });
+
+    // === Анимации и прокрутка ===
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new IntersectionObserver(
+        (entries) => entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        }),
+        { threshold: 0.1 }
+      );
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      const backToTop = document.getElementById('back-to-top');
+      window.addEventListener('scroll', () => {
+        backToTop.classList.toggle('show', window.scrollY > 400);
+      });
+
+      backToTop.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      document.querySelectorAll('.nav-links a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+          e.preventDefault();
+          const target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            const offset = 80;
+            const y = target.offsetTop - offset;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+            document.getElementById('nav-menu').classList.remove('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
